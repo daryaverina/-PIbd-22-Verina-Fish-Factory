@@ -115,6 +115,7 @@ namespace FishFactoryListImplement.Implements
                 if (or.Id == order.Id)
                 {
                     cannedName = or.CannedName;
+                    break;
                 }
             }
             return new OrderViewModel
