@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishFactoryContracts", "Fis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishFactoryListImplement", "FishFactoryListImplement\FishFactoryListImplement.csproj", "{F66114B7-4D96-46E9-AB81-365627FF105A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishFactoryFileImplement", "FishFactoryFileImplement\FishFactoryFileImplement.csproj", "{B8B6972F-C33E-49ED-A241-4504BEE9A401}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F66114B7-4D96-46E9-AB81-365627FF105A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F66114B7-4D96-46E9-AB81-365627FF105A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F66114B7-4D96-46E9-AB81-365627FF105A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B6972F-C33E-49ED-A241-4504BEE9A401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B6972F-C33E-49ED-A241-4504BEE9A401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B6972F-C33E-49ED-A241-4504BEE9A401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B6972F-C33E-49ED-A241-4504BEE9A401}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
