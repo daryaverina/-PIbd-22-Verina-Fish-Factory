@@ -105,7 +105,7 @@ namespace FishFactoryDatabaseImplement.Implements
             {
                 Id = order.Id,
                 CannedId = order.CannedId,
-                CannedName = context.Canneds.FirstOrDefault(rec => rec.Id == order.CannedId)?.CannedName,
+                CannedName = order.Canned.CannedName,
                 Count = order.Count,
                 Sum = order.Sum,
                 Status = order.Status.ToString(),
