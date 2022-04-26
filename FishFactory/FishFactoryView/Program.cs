@@ -2,6 +2,8 @@ using FishFactoryBusinessLogic.BusinessLogics;
 using FishFactoryContracts.BusinessLogicsContracts;
 using FishFactoryContracts.StoragesContracts;
 using FishFactoryDatabaseImplement.Implements;
+using FishFactoryBusinessLogic.OfficePackage;
+using FishFactoryBusinessLogic.OfficePackage.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -43,6 +45,10 @@ namespace FishFactoryView
             currentContainer.RegisterType<IComponentLogic, ComponentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IOrderLogic, OrderLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ICannedLogic, CannedLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToExcel, SaveToExcel>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToPdf, SaveToPdf>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<AbstractSaveToWord, SaveToWord>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

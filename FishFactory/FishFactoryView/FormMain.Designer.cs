@@ -39,6 +39,10 @@ namespace FishFactoryView
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.компонентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.консервыПоИзделиямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокКонсервовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Main_dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -46,7 +50,7 @@ namespace FishFactoryView
             // Main_dataGridView
             // 
             this.Main_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Main_dataGridView.Location = new System.Drawing.Point(0, 36);
+            this.Main_dataGridView.Location = new System.Drawing.Point(0, 34);
             this.Main_dataGridView.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Main_dataGridView.Name = "Main_dataGridView";
             this.Main_dataGridView.RowHeadersWidth = 51;
@@ -113,7 +117,8 @@ namespace FishFactoryView
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.справочникиToolStripMenuItem});
+            this.справочникиToolStripMenuItem,
+            this.отчетыToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
@@ -143,6 +148,37 @@ namespace FishFactoryView
             this.изделияToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
+            // 
+            // отчетыToolStripMenuItem
+            // 
+            this.отчетыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.консервыПоИзделиямToolStripMenuItem,
+            this.списокЗаказовToolStripMenuItem,
+            this.списокКонсервовToolStripMenuItem});
+            this.отчетыToolStripMenuItem.Name = "отчетыToolStripMenuItem";
+            this.отчетыToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
+            this.отчетыToolStripMenuItem.Text = "Отчеты";
+            // 
+            // консервыПоИзделиямToolStripMenuItem
+            // 
+            this.консервыПоИзделиямToolStripMenuItem.Name = "консервыПоИзделиямToolStripMenuItem";
+            this.консервыПоИзделиямToolStripMenuItem.Size = new System.Drawing.Size(284, 26);
+            this.консервыПоИзделиямToolStripMenuItem.Text = "Консервы по компонентам";
+            this.консервыПоИзделиямToolStripMenuItem.Click += new System.EventHandler(this.КонсервыПоКомпонентамToolStripMenuItem_Click);
+            // 
+            // списокЗаказовToolStripMenuItem
+            // 
+            this.списокЗаказовToolStripMenuItem.Name = "списокЗаказовToolStripMenuItem";
+            this.списокЗаказовToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
+            this.списокЗаказовToolStripMenuItem.Text = "Список заказов";
+            this.списокЗаказовToolStripMenuItem.Click += new System.EventHandler(this.списокЗаказовToolStripMenuItem_Click);
+            // 
+            // списокКонсервовToolStripMenuItem
+            // 
+            this.списокКонсервовToolStripMenuItem.Name = "списокКонсервовToolStripMenuItem";
+            this.списокКонсервовToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
+            this.списокКонсервовToolStripMenuItem.Text = "Список консервов";
+            this.списокКонсервовToolStripMenuItem.Click += new System.EventHandler(this.списокКонсервовToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -181,5 +217,9 @@ namespace FishFactoryView
         private System.Windows.Forms.ToolStripMenuItem справочникиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem компонентыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изделияToolStripMenuItem;
+        private ToolStripMenuItem отчетыToolStripMenuItem;
+        private ToolStripMenuItem консервыПоИзделиямToolStripMenuItem;
+        private ToolStripMenuItem списокЗаказовToolStripMenuItem;
+        private ToolStripMenuItem списокКонсервовToolStripMenuItem;
     }
 }
