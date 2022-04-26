@@ -51,7 +51,6 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(1032, 61);
             this.panel.TabIndex = 0;
-            this.panel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Paint);
             // 
             // forming_button
             // 
@@ -104,7 +103,6 @@
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(166, 27);
             this.dateTimePickerFrom.TabIndex = 0;
-            this.dateTimePickerFrom.ValueChanged += new System.EventHandler(this.dateTimePickerFrom_ValueChanged);
             // 
             // FormReportOrders
             // 

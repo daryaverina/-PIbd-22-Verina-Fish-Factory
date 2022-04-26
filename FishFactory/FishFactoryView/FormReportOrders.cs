@@ -91,15 +91,5 @@ namespace FishFactoryView
                 }
             }
         }
-
-        private void panel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void dateTimePickerFrom_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
