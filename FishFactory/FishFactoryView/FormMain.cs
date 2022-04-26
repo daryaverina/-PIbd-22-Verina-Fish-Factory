@@ -71,7 +71,6 @@ namespace FishFactoryView
             if (Main_dataGridView.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(Main_dataGridView.SelectedRows[0].Cells[0].Value);
-                // int id = Convert.ToInt32(Main_dataGridView.SelectedCells[0].RowIndex);
                 try
                 {
                     _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
@@ -92,7 +91,6 @@ namespace FishFactoryView
         {
             if (Main_dataGridView.SelectedRows.Count == 1)
             {
-                // int id = Convert.ToInt32(Main_dataGridView.SelectedCells[0].RowIndex);
                 int id = Convert.ToInt32(Main_dataGridView.SelectedRows[0].Cells[0].Value);
                 try
                 {
@@ -114,7 +112,6 @@ namespace FishFactoryView
             if (Main_dataGridView.SelectedRows.Count == 1)
             {
                 int id = Convert.ToInt32(Main_dataGridView.SelectedRows[0].Cells[0].Value);
-                //int id = Convert.ToInt32(Main_dataGridView.SelectedCells[0].RowIndex);
                 try
                 {
                     _orderLogic.DeliveryOrder(new ChangeStatusBindingModel
