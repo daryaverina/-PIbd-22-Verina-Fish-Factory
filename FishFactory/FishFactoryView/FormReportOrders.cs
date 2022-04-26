@@ -53,7 +53,6 @@ namespace FishFactoryView
                 reportViewer.LocalReport.DataSources.Add(source);
                 var parameters = new[] { new ReportParameter("ReportParameterPeriod", "c " +
                     dateTimePickerFrom.Value.ToShortDateString() + " по " + dateTimePickerTo.Value.ToShortDateString()) };
-                //тут выводит ошибку 
                 reportViewer.LocalReport.SetParameters(parameters);
                 reportViewer.RefreshReport();
             }
