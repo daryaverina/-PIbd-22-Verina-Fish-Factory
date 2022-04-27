@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FishFactoryContracts.BindingModels;
+using FishFactoryContracts.ViewModels;
+using FishFactoryClientApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using FishFactoryClientApp.Models;
-using FishFactoryContracts.BindingModels;
-using FishFactoryContracts.ViewModels;
 
 namespace FishFactoryClientApp.Controllers
 {
@@ -38,7 +36,6 @@ namespace FishFactoryClientApp.Controllers
                 return Redirect("~/Home/Enter");
             }
             return View(Program.Client);
-
         }
 
         [HttpPost]
@@ -47,7 +44,8 @@ namespace FishFactoryClientApp.Controllers
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
             && !string.IsNullOrEmpty(fio))
             {
-                APIClient.PostRequest("api/client/updatedata", new ClientBindingModel
+                APIClient.PostRequest("api/client/updatedata",
+                new ClientBindingModel
                 {
                     Id = Program.Client.Id,
                     ClientFIO = fio,
@@ -63,10 +61,15 @@ namespace FishFactoryClientApp.Controllers
             throw new Exception("Введите логин, пароль и ФИО");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore
+        = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ??
+                HttpContext.TraceIdentifier
+            });
         }
 
         [HttpGet]
@@ -80,7 +83,9 @@ namespace FishFactoryClientApp.Controllers
         {
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password))
             {
-                Program.Client = APIClient.GetRequest<ClientViewModel>($"api/client/login?login={login}&password={password}");
+                Program.Client =
+                APIClient.GetRequest<ClientViewModel>($"api/client/login?login={login}&password={password}");
+
                 if (Program.Client == null)
                 {
                     throw new Exception("Неверный логин/пароль");
@@ -100,15 +105,16 @@ namespace FishFactoryClientApp.Controllers
         [HttpPost]
         public void Register(string login, string password, string fio)
         {
-            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(fio))
+            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
+            && !string.IsNullOrEmpty(fio))
             {
-                APIClient.PostRequest("api/client/register", new ClientBindingModel
+                APIClient.PostRequest("api/client/register",
+                new ClientBindingModel
                 {
-                    Id = 1,
                     ClientFIO = fio,
                     Login = login,
                     Password = password
-                }); ;
+                });
                 Response.Redirect("Enter");
                 return;
             }
@@ -118,7 +124,8 @@ namespace FishFactoryClientApp.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Canned = APIClient.GetRequest<List<CannedViewModel>>("api/main/getcannedlist");
+            ViewBag.Canneds =
+            APIClient.GetRequest<List<CannedViewModel>>("api/main/getcannedlist");
             return View();
         }
 
@@ -129,10 +136,10 @@ namespace FishFactoryClientApp.Controllers
             {
                 return;
             }
-            //прописать запрос
-            APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel
+            APIClient.PostRequest("api/main/createorder",
+            new CreateOrderBindingModel
             {
-                ClientId = (int)Program.Client.Id,
+                ClientId = Program.Client.Id,
                 CannedId = canned,
                 Count = count,
                 Sum = sum
@@ -143,7 +150,8 @@ namespace FishFactoryClientApp.Controllers
         [HttpPost]
         public decimal Calc(decimal count, int canned)
         {
-            CannedViewModel can = APIClient.GetRequest<CannedViewModel>($"api/main/getcanned?cannedId={canned}");
+            CannedViewModel can =
+            APIClient.GetRequest<CannedViewModel>($"api/main/getcanned?cannedId={canned}");
             return count * can.Price;
         }
     }
