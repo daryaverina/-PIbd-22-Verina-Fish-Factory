@@ -158,6 +158,12 @@ namespace FishFactoryView
             var form = Program.Container.Resolve<FormComponentCanned>();
             form.ShowDialog();
         }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormClients>();
+            form.ShowDialog();
+        }
     }
 }
 

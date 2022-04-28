@@ -12,11 +12,13 @@ namespace FishFactoryView
 
         private readonly ICannedLogic _logicP;
         private readonly IOrderLogic _logicO;
-        public FormCreateOrder(ICannedLogic logicP, IOrderLogic logicO)
+        private readonly IClientLogic _logicC;
+        public FormCreateOrder(ICannedLogic logicP, IOrderLogic logicO, IClientLogic logicC)
         {
             InitializeComponent();
             _logicP = logicP;
             _logicO = logicO;
+            _logicC = logicC;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
@@ -24,13 +26,22 @@ namespace FishFactoryView
             {
 
                 // продумать логику
-                var list = _logicP.Read(null);
-                if (list != null)
+                var listP = _logicP.Read(null);
+                foreach (var travel in listP)
                 {
                     Canned_comboBox.DisplayMember = "CannedName";
                     Canned_comboBox.ValueMember = "Id";
-                    Canned_comboBox.DataSource = list;
+                    Canned_comboBox.DataSource = listP;
                     Canned_comboBox.SelectedItem = null;
+                }
+
+                var listC = _logicC.Read(null);
+                foreach (var client in listC)
+                {
+                    Client_comboBox.DataSource = listC;
+                    Client_comboBox.DisplayMember = "ClientFIO";
+                    Client_comboBox.ValueMember = "Id";
+                    Client_comboBox.SelectedItem = null;
                 }
             }
             catch (Exception ex)
@@ -83,11 +94,17 @@ namespace FishFactoryView
                MessageBoxIcon.Error);
                 return;
             }
+            if (Client_comboBox.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     CannedId = Convert.ToInt32(Canned_comboBox.SelectedValue),
+                    ClientId = Convert.ToInt32(Client_comboBox.SelectedValue),
                     Count = Convert.ToInt32(Amount_textBox.Text),
                     Sum = Convert.ToDecimal(Summ_textBox.Text)
                 });
@@ -115,6 +132,11 @@ namespace FishFactoryView
         private void comboBoxCars_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcSum();
+        }
+
+        private void Summ_textBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
