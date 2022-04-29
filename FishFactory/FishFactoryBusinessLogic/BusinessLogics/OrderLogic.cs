@@ -103,7 +103,7 @@ namespace FishFactoryBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-            orderStorage.Update(new OrderBindingModel
+            orderStorage.Delete(new OrderBindingModel
             {
                 Id = order.Id,
                 CannedId = order.CannedId,
