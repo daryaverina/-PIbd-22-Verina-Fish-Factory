@@ -8,6 +8,9 @@ namespace FishFactoryContracts.ViewModels
     {
         public int Id { get; set; }
         public int CannedId { get; set; }
+        public int ClientId { get; set; }
+        [DisplayName("ФИО клиента")]
+        public string ClientFIO { get; set; }
         [DisplayName("Изделие")]
         public string CannedName { get; set; }
         [DisplayName("Количество")]

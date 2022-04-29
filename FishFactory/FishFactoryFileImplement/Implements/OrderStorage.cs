@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using FishFactoryContracts.BindingModels;
 using FishFactoryContracts.StoragesContracts;
 using FishFactoryContracts.ViewModels;
-using FishFactoryFileImplement_.Models;
+using FishFactoryFileImplement.Models;
 
-namespace FishFactoryFileImplement_.Implements
+namespace FishFactoryFileImplement.Implements
 {
     public class OrderStorage : IOrderStorage
     {
@@ -27,7 +27,11 @@ namespace FishFactoryFileImplement_.Implements
             {
                 return null;
             }
-            return source.Orders.Where(rec => rec.CannedId == model.CannedId).Select(CreateModel).ToList();
+            return source.Orders
+                .Where(rec => rec.CannedId.Equals(model.CannedId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                || model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
+                .Select(CreateModel).ToList();
         }
         public OrderViewModel GetElement(OrderBindingModel model)
         {
@@ -69,6 +73,7 @@ namespace FishFactoryFileImplement_.Implements
             Order order)
         {
             order.CannedId = model.CannedId;
+            order.ClientId = model.ClientId.Value;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -82,6 +87,8 @@ namespace FishFactoryFileImplement_.Implements
             {
                 Id = order.Id,
                 CannedId = order.CannedId,
+                ClientId=order.ClientId,
+                ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
                 CannedName = source.Canneds.FirstOrDefault(rec => rec.Id == order.CannedId)?.CannedName,
                 Count = order.Count,
                 Sum = order.Sum,

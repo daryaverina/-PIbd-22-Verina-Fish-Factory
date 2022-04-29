@@ -12,7 +12,9 @@ namespace FishFactoryDatabaseImplement.Models
     {
         public int Id { get; set; }
         public int CannedId { get; set; }
+        public int ClientId { get; set; }
         public virtual Canned Canned { get; set; }
+        public virtual Client Client { get; set; }
         [Required]
         public int Count { get; set; }
         [Required]

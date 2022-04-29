@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using FishFactoryFileImplement_.Models;
+using FishFactoryFileImplement.Models;
 
-namespace FishFactoryFileImplement_
+namespace FishFactoryFileImplement
 {
     public class FileDataListSingleton
     {
@@ -17,15 +17,18 @@ namespace FishFactoryFileImplement_
         private readonly string ComponentFileName = "Component.xml";
         private readonly string OrderFileName = "Order.xml";
         private readonly string CannedFileName = "Canned.xml";
+        private readonly string ClientFileName = "Client.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Canned> Canneds { get; set; }
+        public List<Client> Clients { get; set; }
 
         public static void Save()
         {
             instance.SaveOrders();
             instance.SaveCanneds();
             instance.SaveComponents();
+            instance.SaveClients();
         }
 
         private FileDataListSingleton()
@@ -33,6 +36,7 @@ namespace FishFactoryFileImplement_
             Components = LoadComponents();
             Orders = LoadOrders();
             Canneds = LoadCanneds();
+            Clients = LoadClients();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -47,6 +51,7 @@ namespace FishFactoryFileImplement_
             SaveComponents();
             SaveOrders();
             SaveCanneds();
+            SaveClients();
         }
         private List<Component> LoadComponents()
         {
@@ -87,6 +92,7 @@ namespace FishFactoryFileImplement_
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         CannedId = Convert.ToInt32(elem.Element("CannedId").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = status,
@@ -124,6 +130,26 @@ namespace FishFactoryFileImplement_
             }
             return list;
         }
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ClientFIO = elem.Element("ClientFIO").Value,
+                        Login = elem.Element("Login").Value,
+                        Password = elem.Element("Password").Value,
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveComponents()
         {
             if (Components != null)
@@ -149,6 +175,7 @@ namespace FishFactoryFileImplement_
                     xElement.Add(new XElement("Order",
                         new XAttribute("Id", order.Id),
                         new XElement("CannedId", order.CannedId),
+                        new XElement("ClientId", order.ClientId),
                         new XElement("Count", order.Count),
                         new XElement("Sum", order.Sum),
                         new XElement("Status", order.Status),
@@ -181,6 +208,23 @@ namespace FishFactoryFileImplement_
                 }
                 var xDocument = new XDocument(xElement);
                 xDocument.Save(CannedFileName);
+            }
+        }
+        private void SaveClients()
+        {
+            if (Clients != null)
+            {
+                var xElement = new XElement("Clients");
+                foreach (var client in Clients)
+                {
+                    xElement.Add(new XElement("Client",
+                    new XAttribute("Id", client.Id),
+                    new XElement("ClientFIO", client.ClientFIO),
+                    new XElement("Login", client.Login),
+                    new XElement("Password", client.Password)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ClientFileName);
             }
         }
     }

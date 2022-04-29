@@ -127,6 +127,27 @@ namespace FishFactoryView
                 }
             }
         }
+
+        private void ButtonDel_Click(object sender, EventArgs e)
+        {
+            if (Main_dataGridView.SelectedRows.Count == 1)
+            {
+                int id = Convert.ToInt32(Main_dataGridView.SelectedRows[0].Cells[0].Value);
+                try
+                {
+                    _orderLogic.DeliveryOrder(new ChangeStatusBindingModel
+                    {
+                        OrderId = id
+                    });
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                }
+            }
+        }
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
@@ -156,6 +177,12 @@ namespace FishFactoryView
         private void КонсервыПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Program.Container.Resolve<FormComponentCanned>();
+            form.ShowDialog();
+        }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormClients>();
             form.ShowDialog();
         }
     }
