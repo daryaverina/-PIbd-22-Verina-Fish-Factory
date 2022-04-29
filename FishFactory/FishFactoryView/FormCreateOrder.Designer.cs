@@ -95,7 +95,6 @@ namespace FishFactoryView
             this.Summ_textBox.Name = "Summ_textBox";
             this.Summ_textBox.Size = new System.Drawing.Size(214, 27);
             this.Summ_textBox.TabIndex = 5;
-            this.Summ_textBox.TextChanged += new System.EventHandler(this.Summ_textBox_TextChanged);
             // 
             // Save_button
             // 

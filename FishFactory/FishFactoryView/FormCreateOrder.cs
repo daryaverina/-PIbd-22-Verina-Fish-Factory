@@ -134,9 +134,5 @@ namespace FishFactoryView
             CalcSum();
         }
 
-        private void Summ_textBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
