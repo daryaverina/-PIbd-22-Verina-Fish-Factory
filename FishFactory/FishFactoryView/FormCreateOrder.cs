@@ -27,7 +27,7 @@ namespace FishFactoryView
 
                 // продумать логику
                 var listP = _logicP.Read(null);
-                foreach (var travel in listP)
+                foreach (var canned in listP)
                 {
                     Canned_comboBox.DisplayMember = "CannedName";
                     Canned_comboBox.ValueMember = "Id";
