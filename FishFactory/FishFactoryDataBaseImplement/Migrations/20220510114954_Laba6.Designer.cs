@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishFactoryDataBaseImplement.Migrations
 {
     [DbContext(typeof(FishFactoryDatabase))]
-    [Migration("20220510090336_Laba6")]
+    [Migration("20220510114954_Laba6")]
     partial class Laba6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

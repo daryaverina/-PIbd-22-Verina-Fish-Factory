@@ -22,6 +22,7 @@ namespace FishFactoryView
         public new IUnityContainer Container { get; set; }
         private readonly IOrderLogic _orderLogic;
         private readonly IReportLogic _reportLogic;
+        private readonly IClientLogic _clientLogic;
         private readonly IImplementerLogic _implementerLogic;
         private readonly IWorkProcess _workProcess;
         public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic,
@@ -30,6 +31,7 @@ namespace FishFactoryView
             InitializeComponent();
             _orderLogic = orderLogic;
             _reportLogic = reportLogic;
+            _clientLogic = clientLogic;
             _implementerLogic = implementerLogic;
             _workProcess = workProcess;
         }
@@ -73,7 +75,7 @@ namespace FishFactoryView
         }
         private void ButtonCreateOrder_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormCreateOrder>();
+            var form = Program.Container.Resolve<FormCreateOrder>();
             form.ShowDialog();
             LoadData();
         }

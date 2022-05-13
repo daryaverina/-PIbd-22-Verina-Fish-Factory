@@ -100,7 +100,7 @@ namespace FishFactoryView
                 return;
             }
             try
-            {
+            {  
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
                     CannedId = Convert.ToInt32(Canned_comboBox.SelectedValue),
@@ -111,10 +111,18 @@ namespace FishFactoryView
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
+
                 Close();
             }
             catch (Exception ex)
             {
+                _logicO.CreateOrder(new CreateOrderBindingModel
+                {
+                    CannedId = Convert.ToInt32(Canned_comboBox.SelectedValue),
+                    ClientId = Convert.ToInt32(Client_comboBox.SelectedValue),
+                    Count = Convert.ToInt32(Amount_textBox.Text),
+                    Sum = Convert.ToDecimal(Summ_textBox.Text)
+                });
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             }
