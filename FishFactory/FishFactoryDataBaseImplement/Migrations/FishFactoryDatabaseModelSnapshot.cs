@@ -39,7 +39,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Canneds", (string)null);
+                    b.ToTable("Canneds");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.CannedComponent", b =>
@@ -65,7 +65,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasIndex("ComponentId");
 
-                    b.ToTable("CannedComponents", (string)null);
+                    b.ToTable("CannedComponents");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Client", b =>
@@ -90,7 +90,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Component", b =>
@@ -107,7 +107,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Components", (string)null);
+                    b.ToTable("Components");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Order", b =>
@@ -145,7 +145,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.CannedComponent", b =>
