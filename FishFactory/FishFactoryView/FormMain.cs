@@ -22,11 +22,16 @@ namespace FishFactoryView
         public new IUnityContainer Container { get; set; }
         private readonly IOrderLogic _orderLogic;
         private readonly IReportLogic _reportLogic;
-        public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic)
+        private readonly IImplementerLogic _implementerLogic;
+        private readonly IWorkProcess _workProcess;
+        public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic,
+             IClientLogic clientLogic, IImplementerLogic implementerLogic, IWorkProcess workProcess)
         {
             InitializeComponent();
             _orderLogic = orderLogic;
             _reportLogic = reportLogic;
+            _implementerLogic = implementerLogic;
+            _workProcess = workProcess;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -66,47 +71,7 @@ namespace FishFactoryView
             form.ShowDialog();
             LoadData();
         }
-        private void ButtonTakeOrderInWork_Click(object sender, EventArgs e)
-        {
-            if (Main_dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(Main_dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                    {
-                        OrderId =
-                   id
-                    });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-                }
-            }
-        }
-        private void ButtonOrderReady_Click(object sender, EventArgs e)
-        {
-            if (Main_dataGridView.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(Main_dataGridView.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    _orderLogic.FinishOrder(new ChangeStatusBindingModel
-                    {
-                        OrderId = id
-                    });
-                    LoadData();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
-                }
-            }
-        }
+        
         private void ButtonIssuedOrder_Click(object sender, EventArgs e)
         {
             if (Main_dataGridView.SelectedRows.Count == 1)
@@ -184,6 +149,17 @@ namespace FishFactoryView
         {
             var form = Program.Container.Resolve<FormClients>();
             form.ShowDialog();
+        }
+
+        private void исполнителиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Program.Container.Resolve<FormImplementers>();
+            form.ShowDialog();
+        }
+
+        private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _workProcess.DoWork(_implementerLogic, _orderLogic);
         }
     }
 }
