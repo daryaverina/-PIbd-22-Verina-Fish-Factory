@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishFactoryDataBaseImplement.Migrations
 {
     [DbContext(typeof(FishFactoryDatabase))]
-    [Migration("20220513191808_1")]
-    partial class _1
+    [Migration("20220513195457_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
