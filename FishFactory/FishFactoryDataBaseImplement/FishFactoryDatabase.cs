@@ -15,6 +15,7 @@ namespace FishFactoryDatabaseImplement
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>().Property(m => m.ImplementerId).IsRequired(false);
+            modelBuilder.Entity<MessageInfo>().Property(p => p.ClientId).IsRequired(false);
             base.OnModelCreating(modelBuilder);
         }
         public virtual DbSet<Component> Components { set; get; }
