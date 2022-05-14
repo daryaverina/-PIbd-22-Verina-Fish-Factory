@@ -6,31 +6,37 @@ using FishFactoryContracts.BusinessLogicsContracts;
 using FishFactoryContracts.StoragesContracts;
 using FishFactoryContracts.ViewModels;
 using FishFactoryContracts.Enums;
+using FishFactoryBusinessLogic.MailWorker;
+
 
 namespace FishFactoryBusinessLogic.BusinessLogics
 {
     public class OrderLogic : IOrderLogic
     {
-        private readonly IOrderStorage orderStorage;
-        public OrderLogic(IOrderStorage orderStorage)
+        private readonly IOrderStorage _orderStorage;
+        private readonly IClientStorage _clientStorage;
+        private readonly AbstractMailWorker _mailWorker;
+        public OrderLogic(IOrderStorage orderStorage, IClientStorage clientStorage, AbstractMailWorker mailWorker)
         {
-            this.orderStorage = orderStorage;
+            _orderStorage = orderStorage;
+            _clientStorage = clientStorage;
+            _mailWorker = mailWorker;
         }
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null)
             {
-                return orderStorage.GetFullList();
+                return _orderStorage.GetFullList();
             }
             if (model.Id.HasValue)
             {
-                return new List<OrderViewModel> { orderStorage.GetElement(model) };
+                return new List<OrderViewModel> { _orderStorage.GetElement(model) };
             }
-            return orderStorage.GetFilteredList(model);
+            return _orderStorage.GetFilteredList(model);
         }
         public void CreateOrder(CreateOrderBindingModel model)
         {
-            orderStorage.Insert(new OrderBindingModel
+            _orderStorage.Insert(new OrderBindingModel
             {
                 CannedId = model.CannedId,
                 ClientId = model.ClientId,
@@ -39,10 +45,16 @@ namespace FishFactoryBusinessLogic.BusinessLogics
                 DateCreate = DateTime.Now,
                 Status = OrderStatus.Принят
             });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = model.ClientId })?.Login,
+                Subject = "Ваш заказ создан",
+                Text = $"Заказ от {DateTime.Now} на сумму {model.Sum} был создан"
+            });
         }
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            OrderViewModel tempOrder = orderStorage.GetElement(new OrderBindingModel
+            OrderViewModel tempOrder = _orderStorage.GetElement(new OrderBindingModel
             { Id = model.OrderId });
             if (tempOrder == null)
             {
@@ -54,7 +66,7 @@ namespace FishFactoryBusinessLogic.BusinessLogics
             }
             tempOrder.Status = OrderStatus.Выполняется.ToString();
             tempOrder.DateImplement = DateTime.Now;
-            orderStorage.Update(new OrderBindingModel
+            _orderStorage.Update(new OrderBindingModel
             {
                 Id = tempOrder.Id,
                 CannedId = tempOrder.CannedId,
@@ -66,11 +78,17 @@ namespace FishFactoryBusinessLogic.BusinessLogics
                 DateImplement = tempOrder.DateImplement,
                 Status = OrderStatus.Выполняется
             });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = tempOrder.ClientId })?.Login,
+                Subject = $"Статус заказа № {tempOrder.Id} обновлен",
+                Text = $"Заказ № {tempOrder.Id} передан в работу"
+            });
 
         }
         public void FinishOrder(ChangeStatusBindingModel model)
         {
-            var order = orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -80,7 +98,7 @@ namespace FishFactoryBusinessLogic.BusinessLogics
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
             order.Status = OrderStatus.Готов.ToString();
-            orderStorage.Update(new OrderBindingModel
+            _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 CannedId = order.CannedId,
@@ -92,11 +110,17 @@ namespace FishFactoryBusinessLogic.BusinessLogics
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Готов
             });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Login,
+                Subject = $"Статус заказа № {order.Id} обновлен",
+                Text = $"Заказ № {order.Id} готов"
+            });
         }
         public void DeliveryOrder(ChangeStatusBindingModel model)
         {
             // продумать логику
-            var order = orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
+            var order = _orderStorage.GetElement(new OrderBindingModel { Id = model.OrderId });
             if (order == null)
             {
                 throw new Exception("Не найден заказ");
@@ -105,7 +129,7 @@ namespace FishFactoryBusinessLogic.BusinessLogics
             {
                 throw new Exception("Заказ не в статусе \"Готов\"");
             }
-            orderStorage.Update(new OrderBindingModel
+            _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
                 CannedId = order.CannedId,
@@ -116,6 +140,12 @@ namespace FishFactoryBusinessLogic.BusinessLogics
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Status = OrderStatus.Выдан
+            });
+            _mailWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = _clientStorage.GetElement(new ClientBindingModel { Id = order.ClientId })?.Login,
+                Subject = $"Статус заказа № {order.Id} обновлен",
+                Text = $"Заказ № {order.Id} выдан"
             });
         }
     }

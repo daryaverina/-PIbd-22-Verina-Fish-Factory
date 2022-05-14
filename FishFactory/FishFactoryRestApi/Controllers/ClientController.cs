@@ -2,6 +2,7 @@
 using FishFactoryContracts.BusinessLogicsContracts;
 using FishFactoryContracts.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 
 namespace FishFactoryRestApi.Controllers
@@ -11,9 +12,11 @@ namespace FishFactoryRestApi.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientLogic _logic;
-        public ClientController(IClientLogic logic)
+        private readonly IMessageInfoLogic _messageLogic;
+        public ClientController(IClientLogic logic, IMessageInfoLogic messageLogic)
         {
             _logic = logic;
+            _messageLogic = messageLogic;
         }
 
         [HttpGet]
@@ -26,6 +29,8 @@ namespace FishFactoryRestApi.Controllers
             });
             return (list != null && list.Count > 0) ? list[0] : null;
         }
+        [HttpGet]
+        public List<MessageInfoViewModel> GetClientsMessages(int clientId) => _messageLogic.Read(new MessageInfoBindingModel { ClientId = clientId });
 
         [HttpPost]
         public void Register(ClientBindingModel model) => _logic.CreateOrUpdate(model);
