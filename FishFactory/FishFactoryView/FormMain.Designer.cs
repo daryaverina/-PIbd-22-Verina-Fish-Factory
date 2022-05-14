@@ -38,11 +38,11 @@ namespace FishFactoryView
             this.компонентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.исполнителиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отчетыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.консервыПоИзделиямToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЗаказовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокКонсервовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.исполнителиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.запускРаботToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.Main_dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -61,7 +61,7 @@ namespace FishFactoryView
             // 
             // MakeOrder_button
             // 
-            this.MakeOrder_button.Location = new System.Drawing.Point(1113, 50);
+            this.MakeOrder_button.Location = new System.Drawing.Point(1156, 81);
             this.MakeOrder_button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MakeOrder_button.Name = "MakeOrder_button";
             this.MakeOrder_button.Size = new System.Drawing.Size(166, 31);
@@ -72,7 +72,7 @@ namespace FishFactoryView
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1113, 157);
+            this.button4.Location = new System.Drawing.Point(1156, 188);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(166, 31);
@@ -83,7 +83,7 @@ namespace FishFactoryView
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1113, 279);
+            this.button5.Location = new System.Drawing.Point(1156, 310);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(166, 31);
@@ -102,7 +102,7 @@ namespace FishFactoryView
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1304, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1460, 30);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "Справочники";
             // 
@@ -120,23 +120,30 @@ namespace FishFactoryView
             // компонентыToolStripMenuItem
             // 
             this.компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
-            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.компонентыToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
             this.компонентыToolStripMenuItem.Text = "Компоненты";
             this.компонентыToolStripMenuItem.Click += new System.EventHandler(this.компонентыToolStripMenuItem_Click);
             // 
             // изделияToolStripMenuItem
             // 
             this.изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
-            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.изделияToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.изделияToolStripMenuItem_Click);
             // 
             // клиентыToolStripMenuItem
             // 
             this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
-            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
             this.клиентыToolStripMenuItem.Text = "Клиенты";
             this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
+            // 
+            // исполнителиToolStripMenuItem
+            // 
+            this.исполнителиToolStripMenuItem.Name = "исполнителиToolStripMenuItem";
+            this.исполнителиToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
+            this.исполнителиToolStripMenuItem.Text = "Исполнители";
+            this.исполнителиToolStripMenuItem.Click += new System.EventHandler(this.исполнителиToolStripMenuItem_Click);
             // 
             // отчетыToolStripMenuItem
             // 
@@ -169,13 +176,6 @@ namespace FishFactoryView
             this.списокКонсервовToolStripMenuItem.Text = "Список консервов";
             this.списокКонсервовToolStripMenuItem.Click += new System.EventHandler(this.списокКонсервовToolStripMenuItem_Click);
             // 
-            // исполнителиToolStripMenuItem
-            // 
-            this.исполнителиToolStripMenuItem.Name = "исполнителиToolStripMenuItem";
-            this.исполнителиToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.исполнителиToolStripMenuItem.Text = "Исполнители";
-            this.исполнителиToolStripMenuItem.Click += new System.EventHandler(this.исполнителиToolStripMenuItem_Click);
-            // 
             // запускРаботToolStripMenuItem
             // 
             this.запускРаботToolStripMenuItem.Name = "запускРаботToolStripMenuItem";
@@ -187,7 +187,7 @@ namespace FishFactoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1304, 600);
+            this.ClientSize = new System.Drawing.Size(1460, 600);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.MakeOrder_button);

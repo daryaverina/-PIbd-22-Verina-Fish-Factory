@@ -48,6 +48,8 @@ namespace FishFactoryView
                     Main_dataGridView.DataSource = list;
                     Main_dataGridView.Columns[0].Visible = false;
                     Main_dataGridView.Columns[1].Visible = false;
+                    Main_dataGridView.Columns[2].Visible = false;
+                    Main_dataGridView.Columns[3].Visible = false;
                 }
             }
             catch (Exception ex)

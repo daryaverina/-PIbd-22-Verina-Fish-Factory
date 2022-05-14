@@ -27,6 +27,7 @@ namespace FishFactoryView
         private void FormImplementers_Load(object sender, EventArgs e)
         {
             LoadData();
+            LoadData();
         }
 
         private void LoadData()
