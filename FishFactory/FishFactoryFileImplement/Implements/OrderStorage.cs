@@ -93,7 +93,7 @@ namespace FishFactoryFileImplement.Implements
                 ClientId=order.ClientId,
                 ImplementerId = order.ImplementerId,
                 ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
-                ImplementerFIO = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO,
+                ImplementerFIO = order.ImplementerId.HasValue ? source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO : string.Empty,
                 CannedName = source.Canneds.FirstOrDefault(rec => rec.Id == order.CannedId)?.CannedName,
                 Count = order.Count,
                 Sum = order.Sum,

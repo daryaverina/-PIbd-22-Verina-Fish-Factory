@@ -134,11 +134,11 @@ namespace FishFactoryListImplement.Implements
                 }
             }
             string ImplementerFIO = null;
-            for (int j = 0; j < source.Implementers.Count; ++j)
+            foreach (var implementer in source.Implementers)
             {
-                if (source.Implementers[j].Id == order.ImplementerId)
+                if (implementer.Id == order.ImplementerId)
                 {
-                    ImplementerFIO = source.Implementers[j].ImplementerFIO;
+                    ImplementerFIO = implementer.ImplementerFIO;
                     break;
                 }
             }
