@@ -39,7 +39,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Canneds", (string)null);
+                    b.ToTable("Canneds");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.CannedComponent", b =>
@@ -65,7 +65,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasIndex("ComponentId");
 
-                    b.ToTable("CannedComponents", (string)null);
+                    b.ToTable("CannedComponents");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Client", b =>
@@ -90,7 +90,7 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Component", b =>
@@ -107,7 +107,30 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Components", (string)null);
+                    b.ToTable("Components");
+                });
+
+            modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ImplementerFIO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PauseTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkingTime")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Implementers");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Order", b =>
@@ -133,6 +156,9 @@ namespace FishFactoryDataBaseImplement.Migrations
                     b.Property<DateTime?>("DateImplement")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ImplementerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -145,7 +171,9 @@ namespace FishFactoryDataBaseImplement.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.HasIndex("ImplementerId");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.CannedComponent", b =>
@@ -181,9 +209,15 @@ namespace FishFactoryDataBaseImplement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FishFactoryDatabaseImplement.Models.Implementer", "Implementer")
+                        .WithMany("Orders")
+                        .HasForeignKey("ImplementerId");
+
                     b.Navigation("Canned");
 
                     b.Navigation("Client");
+
+                    b.Navigation("Implementer");
                 });
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Canned", b =>
@@ -201,6 +235,11 @@ namespace FishFactoryDataBaseImplement.Migrations
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Component", b =>
                 {
                     b.Navigation("CannedComponents");
+                });
+
+            modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Implementer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
