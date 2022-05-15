@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishFactoryDataBaseImplement.Migrations
 {
     [DbContext(typeof(FishFactoryDatabase))]
-    [Migration("20220514000919_lab7")]
-    partial class lab7
+    [Migration("20220514055031_init7")]
+    partial class init7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,7 +145,6 @@ namespace FishFactoryDataBaseImplement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ClientId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateDelivery")
@@ -232,9 +231,7 @@ namespace FishFactoryDataBaseImplement.Migrations
                 {
                     b.HasOne("FishFactoryDatabaseImplement.Models.Client", "Client")
                         .WithMany("Messages")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
                 });
