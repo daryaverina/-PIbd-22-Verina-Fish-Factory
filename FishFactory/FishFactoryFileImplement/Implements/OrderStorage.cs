@@ -30,7 +30,9 @@ namespace FishFactoryFileImplement.Implements
             return source.Orders
                 .Where(rec => rec.CannedId.Equals(model.CannedId) || (model.DateFrom.HasValue && model.DateTo.HasValue &&
                 rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                || model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
+                 || (model.ClientId.HasValue && rec.ClientId == model.ClientId.Value)
+                || (model.SearchStatus.HasValue && model.SearchStatus.Value == rec.Status)
+                || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && model.Status == rec.Status))
                 .Select(CreateModel).ToList();
         }
         public OrderViewModel GetElement(OrderBindingModel model)
@@ -74,6 +76,7 @@ namespace FishFactoryFileImplement.Implements
         {
             order.CannedId = model.CannedId;
             order.ClientId = model.ClientId.Value;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -88,7 +91,9 @@ namespace FishFactoryFileImplement.Implements
                 Id = order.Id,
                 CannedId = order.CannedId,
                 ClientId=order.ClientId,
+                ImplementerId = order.ImplementerId,
                 ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO,
+                ImplementerFIO = source.Implementers.FirstOrDefault(rec => rec.Id == order.ImplementerId)?.ImplementerFIO,
                 CannedName = source.Canneds.FirstOrDefault(rec => rec.Id == order.CannedId)?.CannedName,
                 Count = order.Count,
                 Sum = order.Sum,
