@@ -25,7 +25,6 @@ namespace FishFactoryFileImplement
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
 
-
         public static void Save()
         {
             instance.SaveOrders();
