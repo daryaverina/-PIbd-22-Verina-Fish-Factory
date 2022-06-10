@@ -18,6 +18,7 @@ namespace FishFactoryFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string CannedFileName = "Canned.xml";
         private readonly string ClientFileName = "Client.xml";
+        private readonly string MessageFileName = "Message.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Canned> Canneds { get; set; }
