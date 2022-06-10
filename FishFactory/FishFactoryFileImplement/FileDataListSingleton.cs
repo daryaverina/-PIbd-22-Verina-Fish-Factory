@@ -18,14 +18,10 @@ namespace FishFactoryFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string CannedFileName = "Canned.xml";
         private readonly string ClientFileName = "Client.xml";
-        private readonly string ImplementerFileName = "Implementer.xml";
-        private readonly string MessageFileName = "Message.xml";
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Canned> Canneds { get; set; }
         public List<Client> Clients { get; set; }
-        public List<Implementer> Implementers { get; set; }
-        public List<MessageInfo> Messages { get; set; }
 
         public static void Save()
         {
@@ -33,8 +29,6 @@ namespace FishFactoryFileImplement
             instance.SaveCanneds();
             instance.SaveComponents();
             instance.SaveClients();
-            instance.SaveImplementers();
-            instance.SaveMessages();
         }
 
         private FileDataListSingleton()
@@ -43,8 +37,6 @@ namespace FishFactoryFileImplement
             Orders = LoadOrders();
             Canneds = LoadCanneds();
             Clients = LoadClients();
-            Implementers = LoadImplementers();
-            Messages = LoadMessages();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -61,35 +53,6 @@ namespace FishFactoryFileImplement
             SaveCanneds();
             SaveClients();
         }
-        private List<MessageInfo> LoadMessages()
-        {
-            var list = new List<MessageInfo>();
-            if (File.Exists(MessageFileName))
-            {
-                XDocument xDocument = XDocument.Load(MessageFileName);
-                var xElements = xDocument.Root.Elements("MessageInfo").ToList();
-                int? clientId;
-                foreach (var elem in xElements)
-                {
-                    clientId = null;
-                    if (elem.Element("ClientId").Value != "")
-                    {
-                        clientId = Convert.ToInt32(elem.Element("ClientId").Value);
-                    }
-                    list.Add(new MessageInfo
-                    {
-                        MessageId = elem.Attribute("MessageId").Value,
-                        ClientId = clientId,
-                        SenderName = elem.Element("SenderName").Value,
-                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value),
-                        Subject = elem.Element("Subject").Value,
-                        Body = elem.Element("Body").Value
-                    });
-                }
-            }
-            return list;
-        }
-
         private List<Component> LoadComponents()
         {
             var list = new List<Component>();
@@ -301,25 +264,6 @@ namespace FishFactoryFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);
-            }
-        }
-        private void SaveMessages()
-        {
-            if (Messages != null)
-            {
-                var xElement = new XElement("Messages");
-                foreach (var msg in Messages)
-                {
-                    xElement.Add(new XElement("MessageInfo",
-                    new XAttribute("MessageId", msg.MessageId),
-                    new XElement("ClientId", msg.ClientId),
-                    new XElement("SenderName", msg.SenderName),
-                    new XElement("DateDelivery", msg.DateDelivery),
-                    new XElement("Subject", msg.Subject),
-                    new XElement("Body", msg.Body)));
-                }
-                XDocument xDocument = new XDocument(xElement);
-                xDocument.Save(MessageFileName);
             }
         }
     }
