@@ -33,6 +33,7 @@ namespace FishFactoryView
         {
             try
             {
+                Program.ConfigGrid(_logic.Read(null), dataGridView1);
                 var list = _logic.Read(null);
                 if (list != null)
                 {

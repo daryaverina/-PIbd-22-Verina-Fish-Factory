@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
+using FishFactoryContracts.Attributes;
 
 namespace FishFactoryContracts.ViewModels
 {
     public class ClientViewModel
     {
+        [Column(title: "Номер", width: 50)]
         public int Id { get; set; }
 
-        [DisplayName("ФИО клиента")]
+        [Column(title: "Клиент", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ClientFIO { get; set; }
 
-        [DisplayName("Логин")]
+        [Column(title: "Логин", width: 150)]
         public string Login { get; set; }
 
-        [DisplayName("Пароль")]
+        [Column(title: "Пароль", width: 100)]
         public string Password { get; set; }
     }
 }
