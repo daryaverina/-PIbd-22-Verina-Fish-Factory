@@ -51,6 +51,21 @@ namespace FishFactoryDatabaseImplement.Implements
         public void Insert(MessageInfoBindingModel model)
         {
             using var context = new FishFactoryDatabase();
+            MessageInfo element = context.Messages.FirstOrDefault(rec => rec.MessageId == model.MessageId);
+            if (element != null)
+            {
+                throw new Exception("Уже есть письмо с таким идентификатором");
+            }
+            context.Messages.Add(new MessageInfo
+            {
+                MessageId = model.MessageId,
+                ClientId = model.ClientId,
+                SenderName = model.FromMailAddress,
+                DateDelivery = model.DateDelivery,
+                Subject = model.Subject,
+                Body = model.Body
+            });
+            context.SaveChanges();
             MessageInfo element = context.Messages
                   .FirstOrDefault(rec => rec.MessageId == model.MessageId);
         }
