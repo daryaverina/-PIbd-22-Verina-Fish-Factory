@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.ComponentModel;
+using FishFactoryContracts.Attributes;
 
 
 namespace FishFactoryContracts.ViewModels
@@ -10,7 +10,7 @@ namespace FishFactoryContracts.ViewModels
     public class ComponentViewModel
     {
         public int Id { get; set; }
-        [DisplayName("Название компонента")]
+        [Column(title: "Название компонента", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string ComponentName { get; set; }
     }
 }

@@ -22,16 +22,20 @@ namespace FishFactoryView
         public new IUnityContainer Container { get; set; }
         private readonly IOrderLogic _orderLogic;
         private readonly IReportLogic _reportLogic;
+        private readonly IClientLogic _clientLogic;
         private readonly IImplementerLogic _implementerLogic;
         private readonly IWorkProcess _workProcess;
+        private readonly IBackUpLogic _backUpLogic;
         public FormMain(IOrderLogic orderLogic, IReportLogic reportLogic,
-             IClientLogic clientLogic, IImplementerLogic implementerLogic, IWorkProcess workProcess)
+             IClientLogic clientLogic, IImplementerLogic implementerLogic, IWorkProcess workProcess, IBackUpLogic backUpLogic)
         {
             InitializeComponent();
             _orderLogic = orderLogic;
             _reportLogic = reportLogic;
+            _clientLogic = clientLogic;
             _implementerLogic = implementerLogic;
             _workProcess = workProcess;
+            _backUpLogic = backUpLogic;
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -41,16 +45,7 @@ namespace FishFactoryView
         {
             try
             {
-                // продумать логику
-                List<OrderViewModel> list = _orderLogic.Read(null);
-                if (list != null)
-                {
-                    Main_dataGridView.DataSource = list;
-                    Main_dataGridView.Columns[0].Visible = false;
-                    Main_dataGridView.Columns[1].Visible = false;
-                    Main_dataGridView.Columns[2].Visible = false;
-                    Main_dataGridView.Columns[3].Visible = false;
-                }
+                Program.ConfigGrid(_orderLogic.Read(null), Main_dataGridView);
             }
             catch (Exception ex)
             {
@@ -168,6 +163,26 @@ namespace FishFactoryView
         {
             var form = Program.Container.Resolve<FormMessages>();
             form.ShowDialog();
+        }
+
+        private void создатьБэкапToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_backUpLogic != null)
+                {
+                    var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        _backUpLogic.CreateBackUp(new BackUpSaveBinidngModel { FolderName = fbd.SelectedPath });
+                        MessageBox.Show("Бэкап создан", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
