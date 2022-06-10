@@ -66,8 +66,6 @@ namespace FishFactoryDatabaseImplement.Implements
                 Body = model.Body
             });
             context.SaveChanges();
-            MessageInfo element = context.Messages
-                  .FirstOrDefault(rec => rec.MessageId == model.MessageId);
         }
     }
 }
