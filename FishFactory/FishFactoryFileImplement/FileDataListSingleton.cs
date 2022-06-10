@@ -33,6 +33,7 @@ namespace FishFactoryFileImplement
             instance.SaveComponents();
             instance.SaveClients();
             instance.SaveImplementers();
+            instance.SaveMessages();
         }
 
         private FileDataListSingleton()
@@ -42,6 +43,7 @@ namespace FishFactoryFileImplement
             Canneds = LoadCanneds();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            Implementers = LoadMessages();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -57,6 +59,35 @@ namespace FishFactoryFileImplement
             SaveOrders();
             SaveCanneds();
             SaveClients();
+        }
+
+        private List<MessageInfo> LoadMessages()
+        {
+            var list = new List<MessageInfo>();
+            if (File.Exists(MessageFileName))
+            {
+                XDocument xDocument = XDocument.Load(MessageFileName);
+                var xElements = xDocument.Root.Elements("MessageInfo").ToList();
+                int? clientId;
+                foreach (var elem in xElements)
+                {
+                    clientId = null;
+                    if (elem.Element("ClientId").Value != "")
+                    {
+                        clientId = Convert.ToInt32(elem.Element("ClientId").Value);
+                    }
+                    list.Add(new MessageInfo
+                    {
+                        MessageId = elem.Attribute("MessageId").Value,
+                        ClientId = clientId,
+                        SenderName = elem.Element("SenderName").Value,
+                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value),
+                        Subject = elem.Element("Subject").Value,
+                        Body = elem.Element("Body").Value
+                    });
+                }
+            }
+            return list;
         }
         private List<Component> LoadComponents()
         {
@@ -271,6 +302,25 @@ namespace FishFactoryFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);
+            }
+        }
+        private void SaveMessages()
+        {
+            if (Messages != null)
+            {
+                var xElement = new XElement("Messages");
+                foreach (var msg in Messages)
+                {
+                    xElement.Add(new XElement("MessageInfo",
+                    new XAttribute("MessageId", msg.MessageId),
+                    new XElement("ClientId", msg.ClientId),
+                    new XElement("SenderName", msg.SenderName),
+                    new XElement("DateDelivery", msg.DateDelivery),
+                    new XElement("Subject", msg.Subject),
+                    new XElement("Body", msg.Body)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(MessageFileName);
             }
         }
     }
