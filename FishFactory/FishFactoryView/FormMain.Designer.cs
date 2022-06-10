@@ -62,7 +62,7 @@ namespace FishFactoryView
             // 
             // MakeOrder_button
             // 
-            this.MakeOrder_button.Location = new System.Drawing.Point(1113, 50);
+            this.MakeOrder_button.Location = new System.Drawing.Point(1156, 81);
             this.MakeOrder_button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MakeOrder_button.Name = "MakeOrder_button";
             this.MakeOrder_button.Size = new System.Drawing.Size(166, 31);
@@ -73,7 +73,7 @@ namespace FishFactoryView
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(1113, 157);
+            this.button4.Location = new System.Drawing.Point(1156, 188);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(166, 31);
@@ -84,7 +84,7 @@ namespace FishFactoryView
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1113, 279);
+            this.button5.Location = new System.Drawing.Point(1156, 310);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(166, 31);
@@ -104,7 +104,7 @@ namespace FishFactoryView
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1304, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1460, 30);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "Справочники";
             // 
@@ -196,7 +196,7 @@ namespace FishFactoryView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1304, 600);
+            this.ClientSize = new System.Drawing.Size(1460, 600);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.MakeOrder_button);

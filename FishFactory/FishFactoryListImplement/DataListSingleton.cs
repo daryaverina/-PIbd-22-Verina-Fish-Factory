@@ -13,6 +13,7 @@ namespace FishFactoryListImplement
         public List<Canned> Canneds { get; set; }
         public List<Client> Clients { get; set; }
         public List<MessageInfo> Messages { get; set; }
+        public List<Implementer> Implementers { get; set; }
         private DataListSingleton()
         {
             Components = new List<Component>();
@@ -20,6 +21,7 @@ namespace FishFactoryListImplement
             Canneds = new List<Canned>();
             Clients = new List<Client>();
             Messages = new List<MessageInfo>();
+            Implementers = new List<Implementer>();
         }
         public static DataListSingleton GetInstance()
         {

@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewImp = new System.Windows.Forms.DataGridView();
             this.buttonCreate = new System.Windows.Forms.Button();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonRef = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewImp)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridViewImp
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(606, 426);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridViewImp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewImp.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewImp.Name = "dataGridViewImp";
+            this.dataGridViewImp.RowHeadersWidth = 51;
+            this.dataGridViewImp.RowTemplate.Height = 29;
+            this.dataGridViewImp.Size = new System.Drawing.Size(606, 426);
+            this.dataGridViewImp.TabIndex = 0;
             // 
             // buttonCreate
             // 
@@ -95,17 +95,18 @@
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonCreate);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridViewImp);
             this.Name = "FormImplementers";
             this.Text = "Исполнители";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.FormImplementers_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewImp)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewImp;
         private Button buttonCreate;
         private Button buttonUpdate;
         private Button buttonDelete;
