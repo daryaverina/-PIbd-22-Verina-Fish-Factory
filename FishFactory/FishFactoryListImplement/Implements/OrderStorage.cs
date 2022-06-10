@@ -37,7 +37,9 @@ namespace FishFactoryListImplement.Implements
             {
                 if (order.Id == model.Id || (model.DateFrom.HasValue && model.DateTo.HasValue &&
                     order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
-                    || model.ClientId.HasValue && order.ClientId == model.ClientId.Value)
+                      || (model.ClientId.HasValue && order.ClientId == model.ClientId.Value)
+                    || (model.SearchStatus.HasValue && model.SearchStatus.Value == order.Status)
+                    || (model.ImplementerId.HasValue && order.ImplementerId == model.ImplementerId && model.Status == order.Status))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -103,6 +105,7 @@ namespace FishFactoryListImplement.Implements
         {
             order.Id = model.CannedId;
             order.ClientId = model.ClientId.Value;
+            order.ImplementerId = model.ImplementerId;
             order.Count = model.Count;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
@@ -130,12 +133,23 @@ namespace FishFactoryListImplement.Implements
                     break;
                 }
             }
+            string ImplementerFIO = null;
+            foreach (var implementer in source.Implementers)
+            {
+                if (implementer.Id == order.ImplementerId)
+                {
+                    ImplementerFIO = implementer.ImplementerFIO;
+                    break;
+                }
+            }
             return new OrderViewModel
             {
                 Id = order.Id,
                 CannedId = order.Id,
                 ClientId = order.ClientId,
                 ClientFIO = ClientFIO,
+                ImplementerId = order.ImplementerId,
+                ImplementerFIO = ImplementerFIO,
                 Count = order.Count,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,

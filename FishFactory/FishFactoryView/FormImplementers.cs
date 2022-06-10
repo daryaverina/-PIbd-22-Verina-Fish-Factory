@@ -34,6 +34,15 @@ namespace FishFactoryView
             try
             {
                 Program.ConfigGrid(_logic.Read(null), dataGridView1);
+                var list = _logic.Read(null);
+                if (list != null)
+                {
+                    dataGridViewImp.DataSource = list;
+                    dataGridViewImp.Columns[0].Visible = false;
+                    dataGridViewImp.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewImp.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridViewImp.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
             }
             catch (Exception ex)
             {
@@ -52,10 +61,10 @@ namespace FishFactoryView
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 1)
+            if (dataGridViewImp.SelectedRows.Count == 1)
             {
                 var form = Program.Container.Resolve<FormImplementer>();
-                form.Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+                form.Id = Convert.ToInt32(dataGridViewImp.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
@@ -65,11 +74,11 @@ namespace FishFactoryView
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count == 1)
+            if (dataGridViewImp.SelectedRows.Count == 1)
             {
                 if (MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+                    int id = Convert.ToInt32(dataGridViewImp.SelectedRows[0].Cells[0].Value);
                     try
                     {
                         _logic.Delete(new ImplementerBindingModel { Id = id });
