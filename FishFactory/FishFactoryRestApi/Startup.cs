@@ -15,6 +15,8 @@ using FishFactoryBusinessLogic.BusinessLogics;
 using FishFactoryContracts.BusinessLogicsContracts;
 using FishFactoryContracts.StoragesContracts;
 using FishFactoryDatabaseImplement.Implements;
+using FishFactoryBusinessLogic.MailWorker;
+using FishFactoryContracts.BindingModels;
 
 
 namespace FishFactoryRestApi
@@ -34,10 +36,14 @@ namespace FishFactoryRestApi
             services.AddTransient<IClientStorage, ClientStorage>();
             services.AddTransient<IOrderStorage, OrderStorage>();
             services.AddTransient<ICannedStorage, CannedStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
 
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<ICannedLogic, CannedLogic>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -65,6 +71,16 @@ namespace FishFactoryRestApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            var mailSender = app.ApplicationServices.GetService<AbstractMailWorker>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = Configuration?.GetSection("MailLogin")?.Value.ToString(),
+                MailPassword = Configuration?.GetSection("MailPassword")?.Value.ToString(),
+                SmtpClientHost = Configuration?.GetSection("SmtpClientHost")?.Value.ToString(),
+                SmtpClientPort = Convert.ToInt32(Configuration?.GetSection("SmtpClientPort")?.Value.ToString()),
+                PopHost = Configuration?.GetSection("PopHost")?.Value.ToString(),
+                PopPort = Convert.ToInt32(Configuration?.GetSection("PopPort")?.Value.ToString())
             });
         }
     }

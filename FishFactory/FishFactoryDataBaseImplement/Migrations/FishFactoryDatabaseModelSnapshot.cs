@@ -133,6 +133,36 @@ namespace FishFactoryDataBaseImplement.Migrations
                     b.ToTable("Implementers");
                 });
 
+            modelBuilder.Entity("FishFactoryDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.Property<string>("MessageId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateDelivery")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -195,6 +225,15 @@ namespace FishFactoryDataBaseImplement.Migrations
                     b.Navigation("Component");
                 });
 
+            modelBuilder.Entity("FishFactoryDatabaseImplement.Models.MessageInfo", b =>
+                {
+                    b.HasOne("FishFactoryDatabaseImplement.Models.Client", "Client")
+                        .WithMany("Messages")
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Order", b =>
                 {
                     b.HasOne("FishFactoryDatabaseImplement.Models.Canned", "Canned")
@@ -229,6 +268,8 @@ namespace FishFactoryDataBaseImplement.Migrations
 
             modelBuilder.Entity("FishFactoryDatabaseImplement.Models.Client", b =>
                 {
+                    b.Navigation("Messages");
+
                     b.Navigation("Orders");
                 });
 
