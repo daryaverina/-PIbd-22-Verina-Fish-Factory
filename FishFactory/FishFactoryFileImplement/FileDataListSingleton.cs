@@ -19,6 +19,7 @@ namespace FishFactoryFileImplement
         private readonly string CannedFileName = "Canned.xml";
         private readonly string ClientFileName = "Client.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
+        ASPCIDAWF
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Canned> Canneds { get; set; }
