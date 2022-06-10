@@ -19,11 +19,11 @@ namespace FishFactoryFileImplement
         private readonly string CannedFileName = "Canned.xml";
         private readonly string ClientFileName = "Client.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
-        ASPCIDAWF
         public List<Component> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Canned> Canneds { get; set; }
         public List<Client> Clients { get; set; }
+        public List<Implementer> Implementers { get; set; }
 
         public static void Save()
         {
@@ -31,6 +31,7 @@ namespace FishFactoryFileImplement
             instance.SaveCanneds();
             instance.SaveComponents();
             instance.SaveClients();
+            instance.SaveImplementers();
         }
 
         private FileDataListSingleton()
@@ -39,6 +40,7 @@ namespace FishFactoryFileImplement
             Orders = LoadOrders();
             Canneds = LoadCanneds();
             Clients = LoadClients();
+            Implementers = LoadImplementers();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -95,6 +97,7 @@ namespace FishFactoryFileImplement
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         CannedId = Convert.ToInt32(elem.Element("CannedId").Value),
                         ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
+                        ImplementerId = Convert.ToInt32(elem.Element("ImplementerId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = status,
@@ -199,6 +202,7 @@ namespace FishFactoryFileImplement
                         new XAttribute("Id", order.Id),
                         new XElement("CannedId", order.CannedId),
                         new XElement("ClientId", order.ClientId),
+                         new XElement("ImplementerId", order.ImplementerId),
                         new XElement("Count", order.Count),
                         new XElement("Sum", order.Sum),
                         new XElement("Status", order.Status),
